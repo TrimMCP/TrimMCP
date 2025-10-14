@@ -1,0 +1,30 @@
+# Operating System Files
+# macOS
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Editors & IDEs
+# Obsidian
+.obsidian/
+
+# VS Code
+.vscode/
+
+# JetBrains (IntelliJ, GoLand, etc.)
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
