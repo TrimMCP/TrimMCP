@@ -1,0 +1,145 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in SlimMCP
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below to help us identify and fix the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I do X, Y happens instead of Z...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior
+      placeholder: |
+        1. Start SlimMCP with config '...'
+        2. Send request to endpoint '...'
+        3. Observe the response '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: I expected the proxy to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Instead, the proxy...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: SlimMCP Version
+      description: What version of SlimMCP are you running?
+      placeholder: v0.1.0 (run `slim --version`)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Installation Method
+      description: How did you install SlimMCP?
+      options:
+        - Docker
+        - Binary (downloaded from releases)
+        - Built from source
+        - Go install
+        - Homebrew
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go Version (if applicable)
+      description: If built from source, what Go version?
+      placeholder: go1.25.0 (run `go version`)
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Docker/Kubernetes
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS Version
+      description: Specific OS version (e.g., Ubuntu 22.04, macOS 14.0, Windows 11)
+      placeholder: Ubuntu 22.04
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Relevant parts of your slim.yaml configuration (remove sensitive data!)
+      render: yaml
+      placeholder: |
+        proxy:
+          listenAddress: "0.0.0.0:8080"
+          strategy: smart
+          servers:
+            notion:
+              url: "http://localhost:3000"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Copy and paste relevant log output (remove sensitive data!)
+      render: shell
+      placeholder: Paste logs here...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or information about the problem
+      placeholder: This started happening after...
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: I have removed sensitive information from logs and config
+          required: true
+        - label: I can reproduce this issue consistently
+          required: false
+        - label: I have tried with the latest version of SlimMCP
+          required: false

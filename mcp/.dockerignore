@@ -1,0 +1,82 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# GitHub
+.github/
+
+# Tests
+tests/
+TEST_REPORT.md
+*_test.go
+testdata/
+
+# Test tools and fixtures
+internal/testutil/
+tests/fixtures/
+tests/cassettes/
+tests/tools/
+tests/manual/
+tests/transport/
+tests/integration/
+tests/acceptance/
+
+# Environment and secrets
+.env
+.env.*
+*.env
+secrets/
+credentials/
+
+# Build artifacts
+bin/
+build/
+dist/
+*.exe
+*.out
+*.test
+*.prof
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation (included selectively in Dockerfile)
+docs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+
+# Coverage and profiling
+coverage.out
+coverage.html
+*.coverprofile
+*.cpu
+*.mem
+
+# Development databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Node modules (if any tools use npm)
+node_modules/
+
+# Drafts and specs (internal planning)
+drafts/
+specs/
+
+# CI/CD specific files
+.golangci.yml
+Makefile
+
+# MacOS
+.DS_Store

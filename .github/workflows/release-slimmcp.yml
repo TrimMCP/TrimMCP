@@ -1,0 +1,386 @@
+name: Release SlimMCP
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'           # v0.1.0
+      - 'v*.*.*-alpha.*'   # v0.1.0-alpha.1
+      - 'v*.*.*-beta.*'    # v0.1.0-beta.1
+      - 'v*.*.*-rc.*'      # v0.1.0-rc.1
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v0.1.0-alpha.1)'
+        required: true
+
+env:
+  GO_VERSION: '1.25'
+
+jobs:
+  # Determine release type
+  release-type:
+    name: Determine Release Type
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      is_prerelease: ${{ steps.version.outputs.is_prerelease }}
+      is_stable: ${{ steps.version.outputs.is_stable }}
+      deploy_production: ${{ steps.version.outputs.deploy_production }}
+    steps:
+      - name: Extract version info
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+          fi
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+          # Determine if pre-release
+          if [[ "$VERSION" == *"-alpha."* ]] || [[ "$VERSION" == *"-beta."* ]] || [[ "$VERSION" == *"-rc."* ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+            echo "is_stable=false" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "is_stable=true" >> $GITHUB_OUTPUT
+          fi
+
+          # Only deploy stable releases to production repo
+          if [[ "$VERSION" == *"-alpha."* ]] || [[ "$VERSION" == *"-beta."* ]]; then
+            echo "deploy_production=false" >> $GITHUB_OUTPUT
+          else
+            # Deploy RC and stable releases
+            echo "deploy_production=true" >> $GITHUB_OUTPUT
+          fi
+
+  # Run tests
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: mcp/go.sum
+
+      - name: Download dependencies
+        working-directory: ./mcp
+        run: go mod download
+
+      - name: Run unit tests
+        working-directory: ./mcp
+        run: go test -v -race -coverprofile=coverage.out ./pkg/...
+
+      - name: Run integration tests
+        working-directory: ./mcp
+        run: go test -v ./tests/integration/...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./mcp/coverage.out
+          flags: unittests
+
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          working-directory: ./mcp
+
+  # Build binaries for all platforms
+  build:
+    name: Build Binaries
+    needs: [test, release-type]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            goos: linux
+            goarch: amd64
+            output: slim-linux-amd64
+          - os: ubuntu-latest
+            goos: linux
+            goarch: arm64
+            output: slim-linux-arm64
+          - os: macos-latest
+            goos: darwin
+            goarch: amd64
+            output: slim-darwin-amd64
+          - os: macos-latest
+            goos: darwin
+            goarch: arm64
+            output: slim-darwin-arm64
+          - os: windows-latest
+            goos: windows
+            goarch: amd64
+            output: slim-windows-amd64.exe
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: mcp/go.sum
+
+      - name: Build binary
+        working-directory: ./mcp
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          VERSION="${{ needs.release-type.outputs.version }}"
+          VERSION="${VERSION#v}"  # Remove 'v' prefix
+
+          go build -v \
+            -ldflags="-s -w -X main.version=${VERSION}" \
+            -trimpath \
+            -o ../build/${{ matrix.output }} \
+            ./cmd/slimmcp
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.output }}
+          path: build/${{ matrix.output }}
+          retention-days: 7
+
+  # Build Docker images
+  docker:
+    name: Build Docker Images
+    needs: [test, release-type]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata
+        id: meta
+        run: |
+          VERSION="${{ needs.release-type.outputs.version }}"
+          VERSION="${VERSION#v}"  # Remove 'v' prefix
+
+          # Base tags
+          TAGS="slimmcp/proxy:${VERSION}"
+
+          # Add semantic version tags for stable releases
+          if [ "${{ needs.release-type.outputs.is_stable }}" == "true" ]; then
+            # Extract major.minor
+            if [[ "$VERSION" =~ ^([0-9]+)\.([0-9]+)\. ]]; then
+              MAJOR="${BASH_REMATCH[1]}"
+              MINOR="${BASH_REMATCH[2]}"
+              TAGS="${TAGS},slimmcp/proxy:${MAJOR}.${MINOR}"
+              TAGS="${TAGS},slimmcp/proxy:${MAJOR}"
+              TAGS="${TAGS},slimmcp/proxy:latest"
+            fi
+          fi
+
+          # Add pre-release tags
+          if [[ "$VERSION" == *"-alpha."* ]]; then
+            TAGS="${TAGS},slimmcp/proxy:alpha"
+          elif [[ "$VERSION" == *"-beta."* ]]; then
+            TAGS="${TAGS},slimmcp/proxy:beta"
+          elif [[ "$VERSION" == *"-rc."* ]]; then
+            TAGS="${TAGS},slimmcp/proxy:rc"
+          fi
+
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./mcp
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            VERSION=${{ steps.meta.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: |
+            org.opencontainers.image.version=${{ steps.meta.outputs.version }}
+            org.opencontainers.image.created=${{ github.event.repository.updated_at }}
+            org.opencontainers.image.revision=${{ github.sha }}
+
+  # Create GitHub Release
+  release:
+    name: Create GitHub Release
+    needs: [test, build, docker, release-type]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create checksums
+        working-directory: artifacts
+        run: |
+          # Flatten directory structure
+          find . -type f -name 'slim-*' -exec mv {} . \;
+          rm -rf slim-*/
+
+          # Create checksums
+          for file in slim-*; do
+            sha256sum "$file" >> checksums.txt
+          done
+
+          cat checksums.txt
+
+      - name: Prepare release notes
+        run: |
+          VERSION="${{ needs.release-type.outputs.version }}"
+
+          # Extract changelog section for this version
+          if [ -f "mcp/CHANGELOG.md" ]; then
+            sed -n "/## \[${VERSION#v}\]/,/## \[/p" mcp/CHANGELOG.md | \
+            sed '$ d' > release-notes.md
+          fi
+
+          # Add pre-release warning if applicable
+          if [ "${{ needs.release-type.outputs.is_prerelease }}" == "true" ]; then
+            cat > release-notes-final.md <<EOF
+          ## ⚠️ Pre-Release Version
+
+          This is a pre-release version and may contain bugs or unstable features.
+          Not recommended for production use.
+
+          ---
+
+          EOF
+            cat release-notes.md >> release-notes-final.md
+          else
+            cp release-notes.md release-notes-final.md
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.release-type.outputs.version }}
+          name: SlimMCP ${{ needs.release-type.outputs.version }}
+          body_path: release-notes-final.md
+          files: |
+            artifacts/slim-*
+            artifacts/checksums.txt
+          draft: false
+          prerelease: ${{ needs.release-type.outputs.is_prerelease }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploy to production repository (only for RC and stable releases)
+  deploy:
+    name: Deploy to slimmcp/slimmcp
+    needs: [release, release-type]
+    if: needs.release-type.outputs.deploy_production == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "SlimMCP Bot"
+          git config user.email "bot@slimmcp.com"
+
+      - name: Deploy to production repo
+        env:
+          DEPLOY_TOKEN: ${{ secrets.SLIMMCP_DEPLOY_TOKEN }}
+          VERSION: ${{ needs.release-type.outputs.version }}
+        run: |
+          # Clone production repo
+          git clone https://x-access-token:${DEPLOY_TOKEN}@github.com/slimmcp/slimmcp.git prod-repo
+
+          # Sync files (exclude tests and internal files)
+          rsync -av --delete \
+            --exclude='.git/' \
+            --exclude='tests/' \
+            --exclude='TEST_REPORT.md' \
+            --exclude='.env*' \
+            --exclude='bin/' \
+            --exclude='*.out' \
+            --exclude='coverage.*' \
+            --exclude='.golangci.yml' \
+            mcp/ prod-repo/
+
+          # Commit and push
+          cd prod-repo
+          git add .
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Release ${VERSION}"
+            git tag "${VERSION}"
+            git push origin main
+            git push origin "${VERSION}"
+          fi
+
+      - name: Create deployment summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Version: ${{ needs.release-type.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Deployed to: slimmcp/slimmcp" >> $GITHUB_STEP_SUMMARY
+          echo "- Release Type: ${{ needs.release-type.outputs.is_prerelease == 'true' && 'Pre-release' || 'Stable' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Docker Tags: See docker job output" >> $GITHUB_STEP_SUMMARY
+
+  # Trigger pkg.go.dev indexing
+  pkg-go-dev:
+    name: Trigger pkg.go.dev Indexing
+    needs: [release, release-type]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger pkg.go.dev
+        run: |
+          VERSION="${{ needs.release-type.outputs.version }}"
+
+          echo "Triggering pkg.go.dev indexing for ${VERSION}..."
+
+          # Request module info to trigger indexing
+          # This tells the Go proxy to fetch and cache this version
+          curl -sSf "https://proxy.golang.org/github.com/slimmcp/slimmcp/@v/${VERSION}.info" || true
+
+          # Also trigger for the module path
+          curl -sSf "https://sum.golang.org/lookup/github.com/slimmcp/slimmcp@${VERSION}" || true
+
+          echo "✅ pkg.go.dev indexing triggered"
+          echo ""
+          echo "Documentation will be available at:"
+          echo "https://pkg.go.dev/github.com/slimmcp/slimmcp@${VERSION}"
+          echo ""
+          echo "Note: It may take a few minutes for pkg.go.dev to index and display the documentation."
+
+      - name: Create pkg.go.dev summary
+        run: |
+          VERSION="${{ needs.release-type.outputs.version }}"
+          echo "## pkg.go.dev Indexing" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Triggered pkg.go.dev to index version ${VERSION}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Documentation will be available at:" >> $GITHUB_STEP_SUMMARY
+          echo "https://pkg.go.dev/github.com/slimmcp/slimmcp@${VERSION}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Note: Indexing may take 5-15 minutes to complete._" >> $GITHUB_STEP_SUMMARY

@@ -180,12 +180,28 @@ go build -o slim cmd/slimmcp/main.go
    # GitHub Actions will automatically build and deploy
    ```
 
-4. **Create a Release**
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   # Triggers release build with binaries
-   ```
+## Release Process
+
+SlimMCP uses semantic versioning with automated releases via GitHub Actions. The release process supports pre-releases (alpha, beta, RC) and stable releases.
+
+**Quick Release:**
+```bash
+# Update changelogs
+git add CHANGELOG.md mcp/CHANGELOG.md
+git commit -m "Update CHANGELOG for v0.1.0"
+
+# Tag and push
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+GitHub Actions will automatically:
+- Build binaries for all platforms
+- Create Docker images
+- Deploy to production repositories
+- Publish release notes
+
+For detailed release procedures, versioning strategy, checklists, and deployment workflows, see **[RELEASE.md](RELEASE.md)**.
 
 ## Monorepo Tools
 
