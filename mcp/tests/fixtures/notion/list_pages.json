@@ -1,0 +1,22 @@
+{
+  "operation": "list_pages",
+  "server": "notion",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "list_pages",
+      "arguments": {
+        "page_size": 10
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"object\":\"list\",\"results\":[{\"object\":\"page\",\"id\":\"page111-2222-3333-4444-555566667777\",\"created_time\":\"2024-01-15T08:00:00.000Z\",\"last_edited_time\":\"2024-03-10T16:20:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user444-5555-6666-7777-888899990000\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user444-5555-6666-7777-888899990000\"},\"cover\":{\"type\":\"external\",\"external\":{\"url\":\"https://example.com/cover1.jpg\"}},\"icon\":{\"type\":\"emoji\",\"emoji\":\"📚\"},\"parent\":{\"type\":\"workspace\",\"workspace\":true},\"archived\":false,\"properties\":{\"title\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Product Roadmap Q1 2024\",\"link\":null},\"annotations\":{\"bold\":true,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Product Roadmap Q1 2024\",\"href\":null}]}},\"url\":\"https://www.notion.so/Product-Roadmap-Q1-2024-page111222233334444\"},{\"object\":\"page\",\"id\":\"page222-3333-4444-5555-666677778888\",\"created_time\":\"2024-02-01T10:30:00.000Z\",\"last_edited_time\":\"2024-03-08T14:15:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user555-6666-7777-8888-999900001111\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user555-6666-7777-8888-999900001111\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"🎯\"},\"parent\":{\"type\":\"workspace\",\"workspace\":true},\"archived\":false,\"properties\":{\"title\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Marketing Strategy\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Marketing Strategy\",\"href\":null}]}},\"url\":\"https://www.notion.so/Marketing-Strategy-page222333344445555\"},{\"object\":\"page\",\"id\":\"page333-4444-5555-6666-777788889999\",\"created_time\":\"2024-02-15T13:45:00.000Z\",\"last_edited_time\":\"2024-03-09T11:00:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user666-7777-8888-9999-000011112222\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user666-7777-8888-9999-000011112222\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"💡\"},\"parent\":{\"type\":\"page_id\",\"page_id\":\"parent11-2222-3333-4444-555566667777\"},\"archived\":false,\"properties\":{\"title\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Feature Ideas\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":true,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Feature Ideas\",\"href\":null}]}},\"url\":\"https://www.notion.so/Feature-Ideas-page333444455556666\"}],\"next_cursor\":null,\"has_more\":false,\"type\":\"page\",\"page\":{}}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:08:00Z"
+}

@@ -1,0 +1,101 @@
+# SlimMCP Production Configuration
+# This configuration is optimized for production deployment
+
+proxy:
+  # Listen on all interfaces in production
+  listenAddress: "0.0.0.0:8080"
+
+  # Default filtering strategy
+  strategy: "smart"
+
+  # Downstream MCP servers
+  servers:
+    notion:
+      url: "https://your-notion-mcp-server.example.com"
+      timeout: 30s
+      strategy: "smart"
+      aggressiveness: "high"  # Aggressive filtering for production
+      defaults:
+        notion-fetch: ["id", "title", "url", "type", "status"]
+        notion-search: ["id", "title", "url", "type"]
+
+    slack:
+      url: "https://your-slack-mcp-server.example.com"
+      timeout: 30s
+      strategy: "smart"
+      aggressiveness: "medium"
+      defaults:
+        slack-message-get: ["id", "text", "user", "ts", "channel"]
+
+    gdrive:
+      url: "https://your-gdrive-mcp-server.example.com"
+      timeout: 30s
+      strategy: "smart"
+      aggressiveness: "medium"
+      defaults:
+        gdrive-file-get: ["id", "name", "mimeType", "webViewLink"]
+
+  # TLS configuration (uncomment and configure for HTTPS)
+  # tls:
+  #   enabled: true
+  #   certFile: "/etc/slimmcp/tls/cert.pem"
+  #   keyFile: "/etc/slimmcp/tls/key.pem"
+
+  # CORS configuration (configure based on your clients)
+  cors:
+    enabled: true
+    allowOrigins: ["https://your-llm-client.example.com"]
+    allowMethods: ["POST", "OPTIONS"]
+    allowHeaders: ["Content-Type", "Authorization"]
+
+optimization:
+  # Critical fields always included
+  alwaysKeep:
+    - "id"
+    - "type"
+    - "url"
+    - "title"
+    - "name"
+
+  # High-cost, low-value fields always removed
+  alwaysRemove:
+    - "icon"
+    - "cover"
+    - "created_by"
+    - "last_edited_by"
+    - "permissions"
+    - "sharing"
+
+  # Safety settings
+  safety:
+    # Return full response on error (prevents data loss)
+    fallbackOnError: true
+
+    # Circuit breaker for downstream servers
+    circuitBreaker:
+      enabled: true
+      threshold: 10    # Open circuit after 10 failures
+      timeout: 60s     # Wait 60s before half-open state
+
+monitoring:
+  # Enable monitoring
+  enabled: true
+
+  # Prometheus metrics endpoint
+  metricsPort: 9090
+
+  # Production log level (info or warn)
+  logLevel: "info"
+
+  # Request logging
+  requestLogging:
+    enabled: true
+    logHeaders: false  # Don't log headers (may contain sensitive data)
+    logBody: false     # Don't log bodies (performance + privacy)
+
+# Learning mode (optional)
+# learning:
+#   enabled: true
+#   collectUsageData: true      # Collect field usage patterns
+#   improveInference: true      # Automatically improve field inference
+#   persistencePath: "/var/lib/slimmcp/learning"

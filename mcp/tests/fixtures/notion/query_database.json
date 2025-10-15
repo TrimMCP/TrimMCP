@@ -1,0 +1,22 @@
+{
+  "operation": "query_database",
+  "server": "notion",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "query_database",
+      "arguments": {
+        "database_id": "db123456-7890-abcd-ef01-234567890abc"
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"object\":\"list\",\"results\":[{\"object\":\"page\",\"id\":\"page001-2345-6789-abcd-ef0123456789\",\"created_time\":\"2024-03-01T09:00:00.000Z\",\"last_edited_time\":\"2024-03-05T14:30:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user111-2222-3333-4444-555566667777\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user111-2222-3333-4444-555566667777\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"📝\"},\"parent\":{\"type\":\"database_id\",\"database_id\":\"db123456-7890-abcd-ef01-234567890abc\"},\"archived\":false,\"properties\":{\"Name\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Task 1: Implement feature A\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Task 1: Implement feature A\",\"href\":null}]},\"Status\":{\"id\":\"status\",\"type\":\"status\",\"status\":{\"id\":\"in-progress\",\"name\":\"In Progress\",\"color\":\"blue\"}},\"Priority\":{\"id\":\"priority\",\"type\":\"select\",\"select\":{\"id\":\"high\",\"name\":\"High\",\"color\":\"red\"}},\"Assigned\":{\"id\":\"assigned\",\"type\":\"people\",\"people\":[{\"object\":\"user\",\"id\":\"user222-3333-4444-5555-666677778888\",\"name\":\"Alice Johnson\",\"avatar_url\":\"https://example.com/avatar1.jpg\",\"type\":\"person\",\"person\":{\"email\":\"alice@example.com\"}}]},\"Due Date\":{\"id\":\"due\",\"type\":\"date\",\"date\":{\"start\":\"2024-03-15\",\"end\":null,\"time_zone\":null}}},\"url\":\"https://www.notion.so/Task-1-Implement-feature-A-page0012345\"},{\"object\":\"page\",\"id\":\"page002-3456-789a-bcde-f01234567890\",\"created_time\":\"2024-02-28T10:30:00.000Z\",\"last_edited_time\":\"2024-03-04T11:45:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user111-2222-3333-4444-555566667777\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user333-4444-5555-6666-777788889999\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"🐛\"},\"parent\":{\"type\":\"database_id\",\"database_id\":\"db123456-7890-abcd-ef01-234567890abc\"},\"archived\":false,\"properties\":{\"Name\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Bug fix: Rate limiting\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Bug fix: Rate limiting\",\"href\":null}]},\"Status\":{\"id\":\"status\",\"type\":\"status\",\"status\":{\"id\":\"done\",\"name\":\"Done\",\"color\":\"green\"}},\"Priority\":{\"id\":\"priority\",\"type\":\"select\",\"select\":{\"id\":\"medium\",\"name\":\"Medium\",\"color\":\"yellow\"}},\"Assigned\":{\"id\":\"assigned\",\"type\":\"people\",\"people\":[{\"object\":\"user\",\"id\":\"user333-4444-5555-6666-777788889999\",\"name\":\"Bob Smith\",\"avatar_url\":\"https://example.com/avatar2.jpg\",\"type\":\"person\",\"person\":{\"email\":\"bob@example.com\"}}]},\"Due Date\":{\"id\":\"due\",\"type\":\"date\",\"date\":{\"start\":\"2024-03-01\",\"end\":null,\"time_zone\":null}}},\"url\":\"https://www.notion.so/Bug-fix-Rate-limiting-page0023456\"}],\"next_cursor\":null,\"has_more\":false,\"type\":\"page\",\"page\":{}}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:07:00Z"
+}

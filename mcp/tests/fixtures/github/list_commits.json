@@ -1,0 +1,24 @@
+{
+  "operation": "list_commits",
+  "server": "github",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "list_commits",
+      "arguments": {
+        "owner": "anthropics",
+        "repo": "anthropic-sdk-python",
+        "per_page": 10
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[{\"sha\":\"abc123def456ghi789jkl012mno345pqr678stu901\",\"node_id\":\"C_kwDOABCDEFNoABCDEFGHIJKL\",\"commit\":{\"author\":{\"name\":\"Developer One\",\"email\":\"dev1@anthropic.com\",\"date\":\"2024-03-10T10:30:00Z\"},\"committer\":{\"name\":\"Developer One\",\"email\":\"dev1@anthropic.com\",\"date\":\"2024-03-10T10:30:00Z\"},\"message\":\"Add support for streaming responses\",\"tree\":{\"sha\":\"tree123abc456def789\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/git/trees/tree123abc456def789\"},\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/git/commits/abc123def456ghi789jkl012mno345pqr678stu901\",\"comment_count\":2,\"verification\":{\"verified\":true,\"reason\":\"valid\",\"signature\":\"-----BEGIN PGP SIGNATURE-----\\n...\",\"payload\":\"...\"}},\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/abc123def456ghi789jkl012mno345pqr678stu901\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/commit/abc123def456ghi789jkl012mno345pqr678stu901\",\"comments_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/abc123def456ghi789jkl012mno345pqr678stu901/comments\",\"author\":{\"login\":\"dev1\",\"id\":123459,\"node_id\":\"MDQ6VXNlcjEyMzQ1OQ==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123459?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dev1\",\"html_url\":\"https://github.com/dev1\",\"type\":\"User\"},\"committer\":{\"login\":\"dev1\",\"id\":123459,\"node_id\":\"MDQ6VXNlcjEyMzQ1OQ==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123459?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dev1\",\"html_url\":\"https://github.com/dev1\",\"type\":\"User\"},\"parents\":[{\"sha\":\"parent123abc456def789\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/parent123abc456def789\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/commit/parent123abc456def789\"}]},{\"sha\":\"def456ghi789jkl012mno345pqr678stu901vwx234\",\"node_id\":\"C_kwDOABCDEFNoXYZABCDEFGHI\",\"commit\":{\"author\":{\"name\":\"Developer Two\",\"email\":\"dev2@anthropic.com\",\"date\":\"2024-03-09T15:20:00Z\"},\"committer\":{\"name\":\"Developer Two\",\"email\":\"dev2@anthropic.com\",\"date\":\"2024-03-09T15:20:00Z\"},\"message\":\"Fix rate limiting bug\",\"tree\":{\"sha\":\"tree456def789ghi012\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/git/trees/tree456def789ghi012\"},\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/git/commits/def456ghi789jkl012mno345pqr678stu901vwx234\",\"comment_count\":1,\"verification\":{\"verified\":true,\"reason\":\"valid\",\"signature\":\"-----BEGIN PGP SIGNATURE-----\\n...\",\"payload\":\"...\"}},\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/def456ghi789jkl012mno345pqr678stu901vwx234\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/commit/def456ghi789jkl012mno345pqr678stu901vwx234\",\"comments_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/def456ghi789jkl012mno345pqr678stu901vwx234/comments\",\"author\":{\"login\":\"dev2\",\"id\":123460,\"node_id\":\"MDQ6VXNlcjEyMzQ2MA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123460?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dev2\",\"html_url\":\"https://github.com/dev2\",\"type\":\"User\"},\"committer\":{\"login\":\"dev2\",\"id\":123460,\"node_id\":\"MDQ6VXNlcjEyMzQ2MA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123460?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dev2\",\"html_url\":\"https://github.com/dev2\",\"type\":\"User\"},\"parents\":[{\"sha\":\"parent456def789ghi012\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/commits/parent456def789ghi012\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/commit/parent456def789ghi012\"}]}]"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:04:00Z"
+}

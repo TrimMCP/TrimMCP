@@ -1,0 +1,74 @@
+run:
+  timeout: 5m
+  tests: true
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - errcheck      # Check for unchecked errors
+    - gosimple      # Simplify code
+    - govet         # Vet examines Go source code
+    - ineffassign   # Detect ineffectual assignments
+    - staticcheck   # Advanced Go linter
+    - unused        # Find unused code
+    - gofmt         # Check code formatting
+    - goimports     # Check import formatting
+    - misspell      # Find commonly misspelled words
+    - goconst       # Find repeated strings that could be constants
+    - gocyclo       # Check function complexity
+    - unconvert     # Remove unnecessary type conversions
+    - revive        # Fast, configurable, extensible linter
+    - bodyclose     # Check HTTP response body closed
+    - exportloopref # Check loop variable references
+    - nilerr        # Find code returning nil with non-nil error
+    - prealloc      # Find slice declarations that could be preallocated
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gocyclo:
+    min-complexity: 15
+
+  goconst:
+    min-len: 3
+    min-occurrences: 3
+
+  revive:
+    rules:
+      - name: exported
+        disabled: false
+      - name: unexported-return
+        disabled: false
+      - name: var-naming
+        disabled: false
+      - name: package-comments
+        disabled: false
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  exclude-rules:
+    # Exclude some linters from running on tests files
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+
+    # Exclude vendor and generated files
+    - path: vendor/
+      linters:
+        - all
+    - path: internal/testutil/
+      linters:
+        - goconst
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true

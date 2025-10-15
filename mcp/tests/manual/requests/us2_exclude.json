@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "query_database",
+    "arguments": {
+      "database_id": "db123456"
+    }
+  },
+  "_meta": {
+    "fieldSelection": {
+      "exclude": ["icon", "cover", "created_by"],
+      "strategy": "explicit"
+    }
+  },
+  "id": 3
+}

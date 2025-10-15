@@ -1,0 +1,22 @@
+{
+  "operation": "search_pages",
+  "server": "notion",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "search_pages",
+      "arguments": {
+        "query": "test"
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"object\":\"list\",\"results\":[{\"object\":\"page\",\"id\":\"page555-6666-7777-8888-999900001111\",\"created_time\":\"2024-03-05T14:00:00.000Z\",\"last_edited_time\":\"2024-03-10T09:30:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user999-0000-1111-2222-333344445555\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user999-0000-1111-2222-333344445555\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"🧪\"},\"parent\":{\"type\":\"workspace\",\"workspace\":true},\"archived\":false,\"properties\":{\"title\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Test Environment Setup\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Test Environment Setup\",\"href\":null}]}},\"url\":\"https://www.notion.so/Test-Environment-Setup-page555666677778888\"},{\"object\":\"page\",\"id\":\"page666-7777-8888-9999-000011112222\",\"created_time\":\"2024-02-28T11:15:00.000Z\",\"last_edited_time\":\"2024-03-09T16:45:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user000-1111-2222-3333-444455556666\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user000-1111-2222-3333-444455556666\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"📝\"},\"parent\":{\"type\":\"database_id\",\"database_id\":\"db666-7777-8888-9999-000011112222\"},\"archived\":false,\"properties\":{\"Name\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Testing Guidelines\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Testing Guidelines\",\"href\":null}]},\"Status\":{\"id\":\"status\",\"type\":\"status\",\"status\":{\"id\":\"done\",\"name\":\"Done\",\"color\":\"green\"}},\"Category\":{\"id\":\"category\",\"type\":\"select\",\"select\":{\"id\":\"documentation\",\"name\":\"Documentation\",\"color\":\"purple\"}}},\"url\":\"https://www.notion.so/Testing-Guidelines-page666777788889999\"},{\"object\":\"database\",\"id\":\"db777-8888-9999-0000-111122223333\",\"created_time\":\"2024-01-20T10:00:00.000Z\",\"last_edited_time\":\"2024-03-08T13:20:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user111-2222-3333-4444-555566667777\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user111-2222-3333-4444-555566667777\"},\"icon\":{\"type\":\"emoji\",\"emoji\":\"🗂️\"},\"cover\":null,\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Test Cases Database\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Test Cases Database\",\"href\":null}],\"description\":[{\"type\":\"text\",\"text\":{\"content\":\"Repository of all test cases for the project\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Repository of all test cases for the project\",\"href\":null}],\"is_inline\":false,\"properties\":{\"Name\":{\"id\":\"title\",\"type\":\"title\",\"title\":{}}},\"parent\":{\"type\":\"workspace\",\"workspace\":true},\"url\":\"https://www.notion.so/db777888899990000\",\"archived\":false}],\"next_cursor\":null,\"has_more\":false,\"type\":\"page\",\"page\":{}}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:11:00Z"
+}

@@ -1,0 +1,62 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go build artifacts
+.gocache/
+.gopath/
+/benchmark
+/slim
+/slimmcp
+bin/
+build/
+dist/
+
+# Test binaries
+*.test
+*.prof
+acceptance.test
+integration.test
+coverage-integration.out
+
+# Coverage files
+*.cover
+coverage.txt
+coverage.html
+
+# Dependency directories
+vendor/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment and local config
+.env
+.env.local
+.env.*.local
+.env.test
+*.local
+
+# VCR cassettes (recorded HTTP interactions)
+tests/cassettes/
+*.cassette.json
+*.cassette.yaml
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+tmp/

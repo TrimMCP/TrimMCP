@@ -11,6 +11,11 @@ proxy:
   # MCP servers to proxy
   # Update these URLs to match your local MCP server instances
   servers:
+    mock:
+      url: "http://localhost:3000"
+      strategy: smart
+      aggressiveness: medium
+
     notion:
       url: "http://localhost:3000"
       strategy: smart
@@ -18,12 +23,9 @@ proxy:
 
       # Per-tool field defaults for Notion
       defaults:
-        notion-fetch:
-          fields: [id, title, url, status, properties]
-        notion-search:
-          fields: [id, title, url, last_edited_time]
-        notion-query:
-          fields: [id, title, url, status, properties]
+        notion-fetch: [id, title, url, status, properties]
+        notion-search: [id, title, url, last_edited_time]
+        notion-query: [id, title, url, status, properties]
 
     slack:
       url: "http://localhost:3001"
@@ -32,10 +34,8 @@ proxy:
 
       # Per-tool field defaults for Slack
       defaults:
-        slack-fetch:
-          fields: [ts, text, user, channel, attachments]
-        slack-search:
-          fields: [ts, text, user, channel]
+        slack-fetch: [ts, text, user, channel, attachments]
+        slack-search: [ts, text, user, channel]
 
     drive:
       url: "http://localhost:3002"
@@ -44,10 +44,8 @@ proxy:
 
       # Per-tool field defaults for Google Drive
       defaults:
-        drive-get:
-          fields: [id, name, mimeType, webViewLink, modifiedTime]
-        drive-search:
-          fields: [id, name, mimeType, webViewLink]
+        drive-get: [id, name, mimeType, webViewLink, modifiedTime]
+        drive-search: [id, name, mimeType, webViewLink]
 
 # Optimization settings
 optimization:

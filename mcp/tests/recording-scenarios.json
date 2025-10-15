@@ -1,0 +1,131 @@
+[
+  {
+    "server": "notion",
+    "operation": "post_database_query",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-post-database-query",
+      "arguments": {
+        "database_id": "2051ef91a77980ecac84f3388527d5a2",
+        "page_size": 5
+      }
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "post_search",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-post-search",
+      "arguments": {
+        "query": "test",
+        "page_size": 5
+      }
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "get_users",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-get-users",
+      "arguments": {}
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "retrieve_a_database",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-retrieve-a-database",
+      "arguments": {
+        "database_id": "2051ef91a77980ecac84f3388527d5a2"
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "get_file_contents",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "get_file_contents",
+      "arguments": {
+        "owner": "IdeaCraftersHQ",
+        "repo": "eloquent-payable",
+        "path": "README.md"
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "list_issues",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "list_issues",
+      "arguments": {
+        "owner": "golang",
+        "repo": "go",
+        "state": "open",
+        "per_page": 5
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "search_issues",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "search_issues",
+      "arguments": {
+        "q": "is:issue is:open repo:golang/go label:bug",
+        "per_page": 5
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "list_commits",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "list_commits",
+      "arguments": {
+        "owner": "IdeaCraftersHQ",
+        "repo": "eloquent-payable"
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "search_repositories",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "search_repositories",
+      "arguments": {
+        "query": "user:IdeaCraftersHQ"
+      }
+    }
+  },
+  {
+    "server": "github",
+    "operation": "get_issue",
+    "url": "http://localhost:3100",
+    "method": "tools/call",
+    "params": {
+      "name": "get_issue",
+      "arguments": {
+        "owner": "golang",
+        "repo": "go",
+        "issue_number": 70000
+      }
+    }
+  }
+]

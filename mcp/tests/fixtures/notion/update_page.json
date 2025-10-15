@@ -1,0 +1,25 @@
+{
+  "operation": "update_page",
+  "server": "notion",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "update_page",
+      "arguments": {
+        "page_id": "page444-5555-6666-7777-888899990000",
+        "properties": {
+          "title": "Updated Test Page"
+        }
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"object\":\"page\",\"id\":\"page444-5555-6666-7777-888899990000\",\"created_time\":\"2024-03-01T09:00:00.000Z\",\"last_edited_time\":\"2025-10-14T10:09:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user777-8888-9999-0000-111122223333\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user777-8888-9999-0000-111122223333\"},\"cover\":null,\"icon\":{\"type\":\"emoji\",\"emoji\":\"✏️\"},\"parent\":{\"type\":\"page_id\",\"page_id\":\"parent22-3333-4444-5555-666677778888\"},\"archived\":false,\"properties\":{\"title\":{\"id\":\"title\",\"type\":\"title\",\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Updated Test Page\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Updated Test Page\",\"href\":null}]}},\"url\":\"https://www.notion.so/Updated-Test-Page-page444555566667777\",\"public_url\":null}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:09:00Z"
+}
