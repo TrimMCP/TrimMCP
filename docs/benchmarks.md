@@ -2,6 +2,28 @@
 
 Comprehensive performance benchmarks for SlimMCP across different scenarios and configurations.
 
+> **Note**: These are projected production benchmarks based on design goals and proof-of-concept validation. The benchmarks below describe the expected performance of the production proxy with smart filtering strategies. For actual PoC validation results, see the [PoC Benchmark Results](benchmarks/poc.md).
+
+## PoC Validation
+
+A proof-of-concept benchmark (spec 000-poc) validated the core token reduction concept:
+
+- **62.6% average token reduction** across 12 operations (tiktoken-cl100k)
+- **GitHub**: 66-83% reduction (6 operations: list_pull_requests, search_issues, get_repository, create_issue, list_commits, get_pull_request)
+- **Notion**: 42-60% reduction (6 operations: create_page, query_database, list_pages, update_page, create_database, search_pages)
+- **Strategy**: Minimal filtering only (removes URLs, IDs, timestamps, metadata)
+- **Methodology**: Cached responses, not live proxy
+
+The PoC validates that 60%+ token reduction is achievable with basic filtering. Production proxy with smart strategies is expected to reach 70-85% as shown below.
+
+**Full PoC details**: [benchmarks/poc.md](benchmarks/poc.md) | **PoC code**: [../docs/poc/](../docs/poc/)
+
+---
+
+## Production Benchmarks (Projected)
+
+The following benchmarks describe expected performance for the production SlimMCP proxy (spec 001-trim and beyond).
+
 ## Test Environment
 
 **Hardware:**

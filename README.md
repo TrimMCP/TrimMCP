@@ -41,7 +41,7 @@ The monorepo approach provides several advantages for SlimMCP development:
 │   └── commercial-hosted.md  # Commercial offering info
 │
 ├── specs/                 # Feature specifications
-│   └── 001-docs-architecture-md/  # Example feature spec
+│   └── 001-trim/         # v0.1 "Trim" release spec
 │       ├── spec.md       # Feature specification
 │       ├── plan.md       # Implementation plan
 │       ├── tasks.md      # Task breakdown
@@ -206,6 +206,8 @@ This monorepo uses several tools to manage the workflow:
 - `docs/*` - Documentation-only changes
 
 ## Contributing
+
+See `AGENTS.md` for agent-oriented setup and workflow guidance.
 
 ### For Core Team
 

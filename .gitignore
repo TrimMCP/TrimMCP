@@ -28,3 +28,9 @@ Desktop.ini
 # Sublime Text
 *.sublime-workspace
 *.sublime-project
+
+# OpenAI Codex
+.codex/*.json*
+.codex/*.toml
+.codex/log/*
+.codex/sessions/*

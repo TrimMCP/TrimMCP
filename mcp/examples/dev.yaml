@@ -1,0 +1,125 @@
+# SlimMCP Development Configuration
+# This configuration is optimized for local development and testing
+
+proxy:
+  # Listen on localhost for development
+  listenAddress: "127.0.0.1:8080"
+
+  # Default filtering strategy
+  strategy: smart
+
+  # MCP servers to proxy
+  # Update these URLs to match your local MCP server instances
+  servers:
+    notion:
+      url: "http://localhost:3000"
+      strategy: smart
+      aggressiveness: medium
+
+      # Per-tool field defaults for Notion
+      defaults:
+        notion-fetch:
+          fields: [id, title, url, status, properties]
+        notion-search:
+          fields: [id, title, url, last_edited_time]
+        notion-query:
+          fields: [id, title, url, status, properties]
+
+    slack:
+      url: "http://localhost:3001"
+      strategy: smart
+      aggressiveness: medium
+
+      # Per-tool field defaults for Slack
+      defaults:
+        slack-fetch:
+          fields: [ts, text, user, channel, attachments]
+        slack-search:
+          fields: [ts, text, user, channel]
+
+    drive:
+      url: "http://localhost:3002"
+      strategy: smart
+      aggressiveness: medium
+
+      # Per-tool field defaults for Google Drive
+      defaults:
+        drive-get:
+          fields: [id, name, mimeType, webViewLink, modifiedTime]
+        drive-search:
+          fields: [id, name, mimeType, webViewLink]
+
+# Optimization settings
+optimization:
+  # Fields that are always kept (critical for functionality)
+  alwaysKeep:
+    - id
+    - type
+    - url
+    - title
+    - name
+
+  # Fields that are removed by default unless explicitly requested
+  alwaysRemove:
+    - icon
+    - cover
+    - created_by
+    - last_edited_by
+    - permissions
+    - sharing
+
+  # Safety settings for development
+  safety:
+    # Fallback to unfiltered response if filtering fails
+    fallbackOnError: true
+
+    # Circuit breaker to prevent cascading failures
+    circuitBreaker:
+      enabled: true
+      threshold: 5          # Open circuit after 5 failures
+      timeout: 30s          # Reset after 30 seconds
+      halfOpenRequests: 2   # Allow 2 requests when half-open
+
+# Monitoring and observability
+monitoring:
+  enabled: true
+  metricsPort: 9090
+
+  # Log configuration for development
+  logLevel: debug  # Use 'debug' for development, 'info' for production
+
+  # Prometheus metrics
+  prometheus:
+    enabled: true
+    path: /metrics
+
+  # Detailed request logging
+  requestLogging:
+    enabled: true
+    logMetadata: true
+    logBody: false  # Set to true to log request/response bodies (verbose)
+
+  # Health check endpoint
+  healthCheck:
+    enabled: true
+    path: /health
+
+# Learning mode settings (optional, for testing adaptive filtering)
+learning:
+  enabled: false
+  historySize: 1000
+  adaptationRate: 0.1
+  minSamples: 10
+
+# Development-specific settings
+development:
+  # Enable detailed error messages
+  verboseErrors: true
+
+  # Enable CORS for local frontend development
+  cors:
+    enabled: true
+    allowOrigins: ["http://localhost:*"]
+
+  # Reload configuration on changes (requires file watch support)
+  hotReload: false

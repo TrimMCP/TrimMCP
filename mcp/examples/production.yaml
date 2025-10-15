@@ -1,0 +1,141 @@
+# SlimMCP Production Configuration
+# Optimized for small-scale production deployment with the OSS version
+# Designed to run efficiently on minimal infrastructure (e.g., free tier VPS)
+
+proxy:
+  # Bind to all interfaces for production deployment
+  listenAddress: "0.0.0.0:8080"
+
+  # Smart filtering balances token savings with accuracy
+  strategy: smart
+
+  # Configure your MCP servers
+  # Replace these URLs with your actual production MCP server endpoints
+  servers:
+    # Example: Notion MCP server
+    # notion:
+    #   url: "http://notion-mcp:3000"
+    #   timeout: 30s
+    #   strategy: smart
+    #   aggressiveness: high  # Maximize savings in production
+    #
+    #   defaults:
+    #     notion-fetch:
+    #       fields: [id, title, url, status]
+    #     notion-search:
+    #       fields: [id, title, url]
+
+    # Example: Slack MCP server
+    # slack:
+    #   url: "http://slack-mcp:3001"
+    #   timeout: 30s
+    #   strategy: smart
+    #   aggressiveness: high
+    #
+    #   defaults:
+    #     slack-fetch:
+    #       fields: [ts, text, user, channel]
+    #     slack-search:
+    #       fields: [ts, text, user]
+
+# Optimization settings - tuned for maximum token reduction
+optimization:
+  # Critical fields that must always be present
+  alwaysKeep:
+    - id
+    - type
+    - url
+    - title
+    - name
+
+  # Fields to aggressively remove to save tokens
+  alwaysRemove:
+    - icon
+    - cover
+    - created_by
+    - last_edited_by
+    - created_time
+    - permissions
+    - sharing
+    - parent
+    - archived
+    - workspace
+
+  # Production-grade safety settings
+  safety:
+    # Fallback to full response if filtering fails (prevents data loss)
+    fallbackOnError: true
+
+    # Circuit breaker prevents cascading failures
+    circuitBreaker:
+      enabled: true
+      threshold: 10        # Open circuit after 10 consecutive failures
+      timeout: 60s         # Wait 60s before attempting recovery
+      halfOpenRequests: 3  # Test with 3 requests during recovery
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  metricsPort: 9090
+
+  # Production log level (reduce noise)
+  logLevel: info  # Use 'warn' or 'error' for even less logging
+
+  # Prometheus metrics for observability
+  prometheus:
+    enabled: true
+    path: /metrics
+
+  # Request logging (disable body logging to reduce overhead)
+  requestLogging:
+    enabled: true
+    logMetadata: true
+    logBody: false  # Keep false in production to reduce log volume
+
+  # Health check for container orchestration / load balancers
+  healthCheck:
+    enabled: true
+    path: /health
+
+# Disable learning mode in small production deployments
+# (Requires persistent storage which may not be available in free tier)
+learning:
+  enabled: false
+
+# Production-specific settings
+production:
+  # Disable verbose errors (security best practice)
+  verboseErrors: false
+
+  # CORS configuration (adjust based on your needs)
+  cors:
+    enabled: false
+    # Uncomment and configure if you need CORS:
+    # allowOrigins: ["https://yourdomain.com"]
+    # allowMethods: ["GET", "POST", "OPTIONS"]
+    # allowHeaders: ["Content-Type", "Authorization"]
+
+  # TLS termination (use if not handled by reverse proxy)
+  tls:
+    enabled: false
+    # Uncomment and configure if SlimMCP should handle TLS:
+    # certFile: "/etc/slimmcp/tls/cert.pem"
+    # keyFile: "/etc/slimmcp/tls/key.pem"
+
+# Resource limits (recommended for small deployments)
+# These settings help prevent resource exhaustion on constrained infrastructure
+resources:
+  # Maximum concurrent requests
+  maxConcurrentRequests: 100
+
+  # Request timeout
+  requestTimeout: 45s
+
+  # Maximum request body size (in bytes)
+  maxRequestSize: 1048576  # 1MB
+
+  # Connection pool settings for downstream MCP servers
+  connectionPool:
+    maxIdleConns: 10
+    maxIdleConnsPerHost: 5
+    idleConnTimeout: 90s

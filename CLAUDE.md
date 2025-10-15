@@ -30,7 +30,7 @@ oss-mcp-slim/                    # Monorepo root
 │   └── ...
 │
 ├── specs/                       # Feature specifications (SpecKit, stays in monorepo)
-│   └── 001-docs-architecture-md/
+│   └── 001-trim/               # v0.1 "Trim" release - Core proxy functionality
 │       ├── spec.md
 │       ├── plan.md
 │       ├── tasks.md
@@ -45,6 +45,7 @@ oss-mcp-slim/                    # Monorepo root
 ```
 
 ## Active Technologies
+- JSON files in testdata/ directory (no database) (000-poc)
 
 - **Go 1.21+** (minimum 1.21, target 1.25+)
 - **MCP Go SDK**: github.com/mark3labs/mcp-go v0.42.0-beta.1
@@ -136,10 +137,10 @@ See `.specify/memory/constitution.md` for full details. Key principles:
 - 99.9% availability (three nines)
 
 ## Recent Changes
+- 000-poc: Added Go 1.21+
 
 - 2025-10-14: Updated CLAUDE.md for SlimMCP-specific monorepo structure
-- 2025-10-13: Added Go 1.21+ with MCP SDK dependencies
-- 2025-10-13: Initial feature spec (001-docs-architecture-md)
+- 2025-10-14: Renamed spec to 001-trim (codename for v0.1 release)
 
 ## SpecKit Workflow
 

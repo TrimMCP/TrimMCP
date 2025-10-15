@@ -1,0 +1,23 @@
+{
+  "operation": "search_issues",
+  "server": "github",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "search_issues",
+      "arguments": {
+        "query": "repo:anthropics/anthropic-sdk-python is:issue",
+        "per_page": 10
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"total_count\":25,\"incomplete_results\":false,\"items\":[{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10\",\"repository_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python\",\"labels_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10/comments\",\"events_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10/events\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/issues/10\",\"id\":2001234567,\"node_id\":\"I_kwDOABCDEF5zAbC\",\"number\":10,\"title\":\"Add support for function calling\",\"user\":{\"login\":\"user1\",\"id\":123456,\"node_id\":\"MDQ6VXNlcjEyMzQ1Ng==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123456?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/user1\",\"html_url\":\"https://github.com/user1\",\"type\":\"User\"},\"labels\":[{\"id\":333,\"node_id\":\"LA_kwDOABCDEF8AAAAF\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/labels/enhancement\",\"name\":\"enhancement\",\"color\":\"a2eeef\",\"default\":true}],\"state\":\"open\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":3,\"created_at\":\"2024-03-01T14:22:00Z\",\"updated_at\":\"2024-03-05T09:15:00Z\",\"closed_at\":null,\"author_association\":\"NONE\",\"active_lock_reason\":null,\"body\":\"It would be great to have function calling support similar to OpenAI's implementation.\",\"reactions\":{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10/reactions\",\"total_count\":5,\"+1\":5,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/10/timeline\",\"performed_via_github_app\":null,\"state_reason\":null},{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8\",\"repository_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python\",\"labels_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8/comments\",\"events_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8/events\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/issues/8\",\"id\":2001234565,\"node_id\":\"I_kwDOABCDEF5zAbA\",\"number\":8,\"title\":\"Rate limit error handling\",\"user\":{\"login\":\"user2\",\"id\":123457,\"node_id\":\"MDQ6VXNlcjEyMzQ1Nw==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123457?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/user2\",\"html_url\":\"https://github.com/user2\",\"type\":\"User\"},\"labels\":[{\"id\":444,\"node_id\":\"LA_kwDOABCDEF8AAAAG\",\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/labels/bug\",\"name\":\"bug\",\"color\":\"d73a4a\",\"default\":true}],\"state\":\"closed\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":7,\"created_at\":\"2024-02-20T11:30:00Z\",\"updated_at\":\"2024-02-28T16:45:00Z\",\"closed_at\":\"2024-02-28T16:45:00Z\",\"author_association\":\"CONTRIBUTOR\",\"active_lock_reason\":null,\"body\":\"The SDK doesn't handle rate limit errors gracefully.\",\"reactions\":{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8/reactions\",\"total_count\":2,\"+1\":2,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/8/timeline\",\"performed_via_github_app\":null,\"state_reason\":\"completed\"}]}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:01:00Z"
+}
