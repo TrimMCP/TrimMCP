@@ -1,0 +1,104 @@
+# SlimMCP Configuration Schema (YAML)
+# This schema defines the structure of slim.yaml configuration files
+
+proxy:
+  # HTTP server listen address
+  listenAddress: string # default: "0.0.0.0:8080"
+
+  # Default filtering strategy
+  strategy: enum[smart, minimal, explicit, passthrough] # default: "smart"
+
+  # Downstream MCP servers
+  servers:
+    <server-name>:
+      url: string # required, MCP server base URL
+      timeout: duration # default: 30s
+      strategy: string # optional, override global strategy
+      aggressiveness: enum[low, medium, high] # optional
+      defaults: # optional, per-tool field defaults
+        <tool-name>:
+          - string # list of field names
+
+  # CORS configuration (optional)
+  cors:
+    enabled: boolean # default: false
+    allowOrigins:
+      - string # list of allowed origins, use "*" for all
+    allowMethods:
+      - string # list of HTTP methods
+    allowHeaders:
+      - string # list of allowed headers
+
+  # TLS configuration (optional)
+  tls:
+    enabled: boolean # default: false
+    certFile: string # path to certificate file
+    keyFile: string # path to private key file
+
+optimization:
+  # Fields to always include (global whitelist)
+  alwaysKeep:
+    - string # default: [id, type, url, title]
+
+  # Fields to always exclude (global blacklist)
+  alwaysRemove:
+    - string # default: []
+
+  # Safety and error handling
+  safety:
+    fallbackOnError: boolean # default: true
+    circuitBreaker:
+      enabled: boolean # default: true
+      threshold: integer # default: 10
+      timeout: duration # default: 60s
+
+monitoring:
+  # Enable monitoring
+  enabled: boolean # default: true
+
+  # Prometheus metrics port
+  metricsPort: integer # default: 9090
+
+  # Log level (debug, info, warn, error)
+  logLevel: enum[debug, info, warn, error] # default: info
+
+  # Prometheus configuration
+  prometheus:
+    enabled: boolean # default: true
+    path: string # default: "/metrics"
+
+  # Request/response logging
+  requestLogging:
+    enabled: boolean # default: true
+    logMetadata: boolean # default: true
+
+# Learning mode (optional, for future enhancement)
+learning:
+  enabled: boolean # default: false
+  historySize: integer # default: 10000
+  persistPath: string # optional, path to persist learning data
+
+# Example Configuration:
+# ---
+# proxy:
+#   listenAddress: "0.0.0.0:8080"
+#   strategy: smart
+#   servers:
+#     notion:
+#       url: "http://localhost:3000"
+#       timeout: 30s
+#       defaults:
+#         notion-fetch: [id, title, url, status]
+#     slack:
+#       url: "http://localhost:3001"
+#
+# optimization:
+#   alwaysKeep: [id, type, url, title]
+#   alwaysRemove: [icon, cover, created_by, last_edited_by]
+#   safety:
+#     fallbackOnError: true
+#
+# monitoring:
+#   enabled: true
+#   metricsPort: 9090
+#   logLevel: info

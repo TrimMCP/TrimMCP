@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://slimmcp.io/schemas/mcp-response.json",
+  "title": "MCP Response",
+  "description": "JSON-RPC 2.0 response structure with SlimMCP filtering metadata",
+  "type": "object",
+  "required": ["jsonrpc", "id"],
+  "oneOf": [
+    {"required": ["result"]},
+    {"required": ["error"]}
+  ],
+  "properties": {
+    "jsonrpc": {
+      "type": "string",
+      "const": "2.0",
+      "description": "JSON-RPC protocol version"
+    },
+    "result": {
+      "description": "Successful response data (filtered if applicable)"
+    },
+    "error": {
+      "$ref": "#/definitions/jsonrpcError"
+    },
+    "id": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "number"},
+        {"type": "null"}
+      ],
+      "description": "Request identifier (matches request ID)"
+    },
+    "_meta": {
+      "type": "object",
+      "description": "SlimMCP-specific response metadata",
+      "properties": {
+        "fieldSelection": {
+          "$ref": "#/definitions/filteringMetadata"
+        },
+        "version": {
+          "type": "string",
+          "description": "SlimMCP version"
+        },
+        "protocolVersion": {
+          "type": "string",
+          "description": "MCP protocol version"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "jsonrpcError": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "Error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message"
+        },
+        "data": {
+          "description": "Additional error data"
+        }
+      }
+    },
+    "filteringMetadata": {
+      "type": "object",
+      "required": ["applied", "strategy"],
+      "properties": {
+        "applied": {
+          "type": "boolean",
+          "description": "Was filtering applied?"
+        },
+        "strategy": {
+          "type": "string",
+          "enum": ["smart", "minimal", "explicit", "passthrough"],
+          "description": "Strategy used"
+        },
+        "filteredBy": {
+          "type": "string",
+          "enum": ["proxy", "server"],
+          "description": "Who performed the filtering"
+        },
+        "originalSize": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Original response size in tokens"
+        },
+        "filteredSize": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Filtered response size in tokens"
+        },
+        "savings": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Savings percentage"
+        },
+        "fields": {
+          "type": "object",
+          "properties": {
+            "kept": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Fields that were kept"
+            },
+            "removed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of fields removed"
+            }
+          }
+        },
+        "filteringTime": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Time spent filtering in milliseconds"
+        }
+      }
+    }
+  }
+}

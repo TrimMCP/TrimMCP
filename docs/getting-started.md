@@ -208,6 +208,17 @@ Use your application normally. SlimMCP will automatically filter responses.
 curl http://localhost:9090/metrics | grep savings
 ```
 
+## Client Quick Configs
+
+To quickly wire popular MCP clients to SlimMCP, see ready-to-paste snippets in the repository README:
+
+- Claude Desktop (URL-based and JIT stdio): see mcp/README.md
+- Cursor (URL-based and JIT stdio): see mcp/README.md
+- Windsurf, Cline, Continue...
+
+Tip: SlimMCP is an HTTP proxy. Prefer URL-based configuration when the client supports it; otherwise, use the
+included `slim-stdio-bridge` to spawn a stdio shim that forwards to SlimMCP over HTTP.
+
 You should see something like:
 ```
 mcp_optimizer_savings_percentage{server="notion"} 82.3

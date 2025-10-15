@@ -1,0 +1,50 @@
+[
+  {
+    "server": "notion",
+    "operation": "post_database_query",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-post-database-query",
+      "arguments": {
+        "database_id": "2051ef91a77980ecac84f3388527d5a2",
+        "page_size": 5
+      }
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "post_search",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-post-search",
+      "arguments": {
+        "query": "test",
+        "page_size": 5
+      }
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "retrieve_a_database",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-retrieve-a-database",
+      "arguments": {
+        "database_id": "2051ef91a77980ecac84f3388527d5a2"
+      }
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "get_users",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-get-users",
+      "arguments": {}
+    }
+  }
+]

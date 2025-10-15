@@ -1,0 +1,25 @@
+{
+  "operation": "create_issue",
+  "server": "github",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "create_issue",
+      "arguments": {
+        "owner": "anthropics",
+        "repo": "anthropic-sdk-python",
+        "title": "[Test] Token benchmark capture",
+        "body": "This is a test issue created for SlimMCP token benchmark. Please ignore and close."
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15\",\"repository_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python\",\"labels_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15/comments\",\"events_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15/events\",\"html_url\":\"https://github.com/anthropics/anthropic-sdk-python/issues/15\",\"id\":2001234570,\"node_id\":\"I_kwDOABCDEF5zAbE\",\"number\":15,\"title\":\"[Test] Token benchmark capture\",\"user\":{\"login\":\"testuser\",\"id\":123458,\"node_id\":\"MDQ6VXNlcjEyMzQ1OA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/123458?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/testuser\",\"html_url\":\"https://github.com/testuser\",\"type\":\"User\"},\"labels\":[],\"state\":\"open\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":0,\"created_at\":\"2025-10-14T10:03:00Z\",\"updated_at\":\"2025-10-14T10:03:00Z\",\"closed_at\":null,\"author_association\":\"NONE\",\"active_lock_reason\":null,\"body\":\"This is a test issue created for SlimMCP token benchmark. Please ignore and close.\",\"reactions\":{\"url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/anthropics/anthropic-sdk-python/issues/15/timeline\",\"performed_via_github_app\":null,\"state_reason\":null}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:03:00Z"
+}

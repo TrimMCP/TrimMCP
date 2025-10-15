@@ -1,0 +1,96 @@
+name: Server Support Request
+description: Request first-class SlimMCP support or tuning for a specific MCP server
+title: "[Server]: "
+labels: ["server-request", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new MCP server to document or optimize! Sharing the details below helps us wire up config defaults, fixtures, and tests faster.
+
+  - type: input
+    id: server-name
+    attributes:
+      label: Server Name
+      description: Official name of the MCP server (as it appears in its repository or docs)
+      placeholder: Example: Notion MCP Server
+    validations:
+      required: true
+
+  - type: input
+    id: package
+    attributes:
+      label: Package / Install Command
+      description: Provide the npm package, binary, or container reference used to install or run the server
+      placeholder: npx -y @acme/mcp-server
+    validations:
+      required: true
+
+  - type: textarea
+    id: transport
+    attributes:
+      label: Supported Transports
+      description: Which transports does the server support? Include any connection URLs, ports, or CLI flags.
+      placeholder: |
+        - stdio (default command)
+        - HTTP: https://api.example.com/mcp/
+        - SSE: https://api.example.com/mcp/sse
+    validations:
+      required: true
+
+  - type: textarea
+    id: auth
+    attributes:
+      label: Authentication Requirements
+      description: Describe how to authenticate (env vars, OAuth scopes, tokens, etc.)
+      placeholder: |
+        - Requires ACME_API_TOKEN env var
+        - OAuth scopes: read:projects, read:issues
+    validations:
+      required: true
+
+  - type: textarea
+    id: tools
+    attributes:
+      label: Key Tools / Operations
+      description: List the primary MCP tools or capabilities you expect to use.
+      placeholder: |
+        - project-list
+        - issue-get
+        - issue-create
+    validations:
+      required: true
+
+  - type: textarea
+    id: payloads
+    attributes:
+      label: Example Payloads or Responses
+      description: Include sample requests/responses or links to API docs that show the shape of data.
+      placeholder: Paste sanitized JSON snippets, docs URLs, or screenshots
+    validations:
+      required: false
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why This Server Matters
+      description: Explain the use cases that SlimMCP should unlock by supporting this server.
+      placeholder: |
+        - We use ACME daily for project tracking and need filtering to cut token usage.
+        - Customers expect SlimMCP to work out-of-the-box with ACME.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I confirmed this server is MCP-compatible or has an MCP bridge.
+          required: true
+        - label: I searched existing issues for similar requests.
+          required: true
+        - label: I can help provide recordings or fixtures if needed.
+          required: false

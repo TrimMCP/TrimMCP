@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "query_database",
+    "arguments": {
+      "database_id": "db123456"
+    }
+  },
+  "_meta": {
+    "fieldSelection": {
+      "include": ["results", "results.id", "results.properties.Status", "results.properties.Priority"],
+      "strategy": "explicit"
+    }
+  },
+  "id": 4
+}

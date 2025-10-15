@@ -1,0 +1,23 @@
+{
+  "operation": "create_database",
+  "server": "notion",
+  "request": {
+    "method": "tools/call",
+    "params": {
+      "name": "create_database",
+      "arguments": {
+        "parent_page_id": "parent33-4444-5555-6666-777788889999",
+        "title": "Test Database"
+      }
+    }
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"object\":\"database\",\"id\":\"db555-6666-7777-8888-999900001111\",\"created_time\":\"2025-10-14T10:10:00.000Z\",\"last_edited_time\":\"2025-10-14T10:10:00.000Z\",\"created_by\":{\"object\":\"user\",\"id\":\"user888-9999-0000-1111-222233334444\"},\"last_edited_by\":{\"object\":\"user\",\"id\":\"user888-9999-0000-1111-222233334444\"},\"icon\":null,\"cover\":null,\"title\":[{\"type\":\"text\",\"text\":{\"content\":\"Test Database\",\"link\":null},\"annotations\":{\"bold\":false,\"italic\":false,\"strikethrough\":false,\"underline\":false,\"code\":false,\"color\":\"default\"},\"plain_text\":\"Test Database\",\"href\":null}],\"description\":[],\"is_inline\":false,\"properties\":{\"Name\":{\"id\":\"title\",\"name\":\"Name\",\"type\":\"title\",\"title\":{}},\"Status\":{\"id\":\"status\",\"name\":\"Status\",\"type\":\"status\",\"status\":{\"options\":[{\"id\":\"todo\",\"name\":\"To Do\",\"color\":\"gray\"},{\"id\":\"in-progress\",\"name\":\"In Progress\",\"color\":\"blue\"},{\"id\":\"done\",\"name\":\"Done\",\"color\":\"green\"}],\"groups\":[{\"id\":\"group1\",\"name\":\"Not started\",\"color\":\"gray\",\"option_ids\":[\"todo\"]},{\"id\":\"group2\",\"name\":\"Started\",\"color\":\"blue\",\"option_ids\":[\"in-progress\"]},{\"id\":\"group3\",\"name\":\"Complete\",\"color\":\"green\",\"option_ids\":[\"done\"]}]}},\"Tags\":{\"id\":\"tags\",\"name\":\"Tags\",\"type\":\"multi_select\",\"multi_select\":{\"options\":[]}},\"Date\":{\"id\":\"date\",\"name\":\"Date\",\"type\":\"date\",\"date\":{}}},\"parent\":{\"type\":\"page_id\",\"page_id\":\"parent33-4444-5555-6666-777788889999\"},\"url\":\"https://www.notion.so/db555666677778888\",\"public_url\":null,\"archived\":false}"
+      }
+    ]
+  },
+  "captured_at": "2025-10-14T10:10:00Z"
+}

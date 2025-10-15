@@ -1,0 +1,24 @@
+[
+  {
+    "server": "notion",
+    "operation": "get_users",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-get-users",
+      "arguments": {}
+    }
+  },
+  {
+    "server": "notion",
+    "operation": "retrieve_a_database",
+    "url": "http://localhost:3000",
+    "method": "tools/call",
+    "params": {
+      "name": "API-retrieve-a-database",
+      "arguments": {
+        "database_id": "2051ef91a77980ecac84f3388527d5a2"
+      }
+    }
+  }
+]
